@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+    - name:
+      shell: netstat -lntp
+      register: System_Status
+
+    - name: Get System Status
+      debug: msg={{System_Status.stdout_lines}}
