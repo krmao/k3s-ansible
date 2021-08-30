@@ -102,3 +102,24 @@ exit
      
    * playbook 模块
       > ansible-playbook ~/workspace/k3s-ansible/ansible-learn/test.yml # -u root
+
+### 4. [k3s-ansible](https://www.cnblogs.com/k8ops/p/12943766.html#2102995432)
+> [国内镜像地址下载](https://www.cnblogs.com/k3s2019/p/14339547.html)
+1. 清理环境
+    > ansible-playbook reset.yml -i inventory/my-cluster/hosts.ini -u ops_root -b -vv
+2. 安装master/node
+    > ansible-playbook site.yml -i inventory/my-cluster/hosts.ini -u ops_root -b -vv
+3.  登录 master 检查 kubectl 命令是否成功安装
+    > ssh k0
+    > 
+    > kubectl get pod -n kube-system
+    ```shell
+    # kubectl get pod -n kube-system
+    NAME                                      READY   STATUS      RESTARTS   AGE
+    metrics-server-6d684c7b5-6cgcz            1/1     Running     0          3h12m
+    local-path-provisioner-58fb86bdfd-ctxqp   1/1     Running     0          3h12m
+    helm-install-traefik-fknsv                0/1     Completed   0          3h12m
+    svclb-traefik-g9f7j                       2/2     Running     0          3h11m
+    coredns-6c6bb68b64-cb8z2                  1/1     Running     0          3h12m
+    traefik-7b8b884c8-v8stn                   1/1     Running     0          3h11m
+    ```
