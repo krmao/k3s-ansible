@@ -111,8 +111,6 @@ exit
     > ansible-playbook site.yml -i inventory/my-cluster/hosts.ini -u ops_root -b -vv
 3.  登录 master 检查 kubectl 命令是否成功安装
     > ssh k0
-    > 
-    > kubectl get pod -n kube-system
     ```shell
     # kubectl get pod -n kube-system
     NAME                                      READY   STATUS      RESTARTS   AGE
@@ -122,4 +120,8 @@ exit
     svclb-traefik-g9f7j                       2/2     Running     0          3h11m
     coredns-6c6bb68b64-cb8z2                  1/1     Running     0          3h12m
     traefik-7b8b884c8-v8stn                   1/1     Running     0          3h11m
+    
+    # kubectl get nodes
+    NAME         STATUS   ROLES    AGE     VERSION
+    krmao-hw-0   Ready    master   3h15m   v1.17.5+k3s1
     ```
