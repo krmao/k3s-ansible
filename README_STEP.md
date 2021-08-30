@@ -125,3 +125,7 @@ exit
     NAME         STATUS   ROLES    AGE     VERSION
     krmao-hw-0   Ready    master   3h15m   v1.17.5+k3s1
     ```
+### 参考
+* https://www.yinnote.com/k3s-instal/
+* ./roles/k3s/master/templates/k3s.service.j2 对应 /etc/systemd/system/k3s.service 文件
+* extra_server_args: "--node-external-ip {{ master_ip }} --node-ip {{ master_ip }}" master 使用外网 ip 地址进行注册和通讯

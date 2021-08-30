@@ -1,4 +1,10 @@
 ---
+- name: echo master info
+  shell: echo master_ip={{ master_ip }}, token={{ hostvars[groups['master'][0]]['token'] }}, extra_agent_args={{ extra_agent_args | default("") }}, node_regist_to_server_command=/usr/local/bin/k3s agent --server https://{{ master_ip }}:6443 --token {{ hostvars[groups['master'][0]]['token'] }} {{ extra_agent_args | default("") }}
+  register: Echo_Master_Info_Command
+
+- name: get console msg about 'echo master info'
+  debug: msg={{Echo_Master_Info_Command.stdout_lines}}
 
 - name: Copy K3s service file
   template:
