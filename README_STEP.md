@@ -125,6 +125,7 @@ exit
     krmao-hw-0   Ready    master   97s   v1.17.5+k3s1   192.168.0.169   122.112.245.157   CentOS Linux 7 (Core)   3.10.0-1160.15.2.el7.x86_64   containerd://1.3.3-k3s2
     ```
 4. [配置 Ansible 控制机 MacOS 从外部访问 K3s 集群](https://habd.as/post/kubernetes-macos-k3s-k3d-rancher/)
+    > [参考 使用 kubectl 从外部访问集群](https://docs.rancher.cn/docs/k3s/cluster-access/_index)
     1. ansible 控制机 macos 安装 k3s/helm/kubectl 命令
         ```shell
         HOMEBREW_NO_AUTO_UPDATE=1 \
@@ -156,6 +157,7 @@ exit
 ### 参考
 * [K3S 官方中文文档](https://docs.rancher.cn/k3s/)
 * [Helm 包管理工具](https://docs.rancher.cn/docs/k3s/helm/_index/)
+* [使用 kubectl 从外部访问集群](https://docs.rancher.cn/docs/k3s/cluster-access/_index)
 * [K3S 安装参考](https://www.yinnote.com/k3s-instal/)
 * /etc/systemd/system/k3s.service
   > ./roles/k3s/master/templates/k3s.service.j2
