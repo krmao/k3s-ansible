@@ -154,7 +154,9 @@ exit
         k get nodes -o wide --all-namespaces
        ```
 ### 参考
-* [安装参考](https://www.yinnote.com/k3s-instal/)
+* [K3S 官方中文文档](https://docs.rancher.cn/k3s/)
+* [Helm 包管理工具](https://docs.rancher.cn/docs/k3s/helm/_index/)
+* [K3S 安装参考](https://www.yinnote.com/k3s-instal/)
 * /etc/systemd/system/k3s.service
   > ./roles/k3s/master/templates/k3s.service.j2
 * 实现跨云集群互联
