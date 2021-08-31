@@ -124,7 +124,14 @@ exit
     krmao-hw-1   Ready    <none>   85s   v1.17.5+k3s1   192.168.0.57    119.3.86.212      CentOS Linux 7 (Core)   3.10.0-1160.15.2.el7.x86_64   containerd://1.3.3-k3s2
     krmao-hw-0   Ready    master   97s   v1.17.5+k3s1   192.168.0.169   122.112.245.157   CentOS Linux 7 (Core)   3.10.0-1160.15.2.el7.x86_64   containerd://1.3.3-k3s2
     ```
+    
 ### 参考
-* https://www.yinnote.com/k3s-instal/
-* ./roles/k3s/master/templates/k3s.service.j2 对应 /etc/systemd/system/k3s.service 文件
-* extra_server_args: "--node-external-ip {{ master_ip }} --node-ip {{ master_ip }}" master 使用外网 ip 地址进行注册和通讯
+* [安装参考](https://www.yinnote.com/k3s-instal/)
+* /etc/systemd/system/k3s.service
+  > ./roles/k3s/master/templates/k3s.service.j2
+* 实现跨云集群互联
+  ```yaml
+  #all.yml
+  extra_server_args: "--node-external-ip {{ ansible_ssh_host }}" # 每一台 master 使用外网 ip 地址注册和互联, 实现跨云集群互联
+  extra_agent_args: "--node-external-ip {{ ansible_ssh_host }}"  # 每一台 node   使用外网 ip 地址注册和互联, 实现跨云集群互联
+  ```
