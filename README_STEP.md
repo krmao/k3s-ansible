@@ -106,9 +106,9 @@ exit
 ### 4. [k3s-ansible](https://www.cnblogs.com/k8ops/p/12943766.html#2102995432)
 > [国内镜像地址下载](https://www.cnblogs.com/k3s2019/p/14339547.html)
 1. 清理环境
-    > ansible-playbook reset.yml -i inventory/my-cluster/hosts.ini -u ops_root -b -vv
+    > ansible-playbook reset.yml -i inventory/my-cluster/hosts.ini -u root -b -vv
 2. 安装master/node
-    > ansible-playbook site.yml -i inventory/my-cluster/hosts.ini -u ops_root -b -vv
+    > ansible-playbook site.yml -i inventory/my-cluster/hosts.ini -u root -b -vv
 3.  登录 master 检查 kubectl 命令是否成功安装
     > ssh k0
     ```shell

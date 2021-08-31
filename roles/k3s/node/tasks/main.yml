@@ -6,11 +6,11 @@
 #- debug: msg=--node-ip={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}     # 内网 IP
 #- debug: msg=--node-ip={{ ansible_default_ipv4.address|default(ansible_all_ipv4_addresses[0]) }} # 内网 IP
 
-- name: print master info command
+- name: Print master info command
   shell: echo master_ip={{ master_ip }}, token={{ hostvars[groups['master'][0]]['token'] }}, extra_agent_args={{ extra_agent_args | default("") }}, node_regist_to_server_command=/usr/local/bin/k3s agent --server https://{{ master_ip }}:6443 --token {{ hostvars[groups['master'][0]]['token'] }} {{ extra_agent_args | default("") }}
   register: Print_Master_Info_Command
 
-- name: print master info status
+- name: Print master info status
   debug: msg={{Print_Master_Info_Command.stdout_lines}}
 
 - name: Copy K3s service file
