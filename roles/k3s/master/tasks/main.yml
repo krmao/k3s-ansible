@@ -1,4 +1,10 @@
 ---
+- name: print master external ip
+  ipify_facts: # debug 打印信息
+- debug: msg=--node-external-ip={{ ansible_ssh_host }}                                            # 外网 IP
+#- debug: msg=--node-external-ip={{ hostvars[inventory_hostname]['ipify_public_ip'] }}            # 外网 IP
+#- debug: msg=--node-ip={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}     # 内网 IP
+#- debug: msg=--node-ip={{ ansible_default_ipv4.address|default(ansible_all_ipv4_addresses[0]) }} # 内网 IP
 
 - name: Copy K3s service file
   register: k3s_service

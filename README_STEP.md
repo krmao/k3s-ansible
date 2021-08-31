@@ -114,16 +114,15 @@ exit
     ```shell
     # kubectl get pod -n kube-system
     NAME                                      READY   STATUS      RESTARTS   AGE
-    metrics-server-6d684c7b5-6cgcz            1/1     Running     0          3h12m
-    local-path-provisioner-58fb86bdfd-ctxqp   1/1     Running     0          3h12m
-    helm-install-traefik-fknsv                0/1     Completed   0          3h12m
-    svclb-traefik-g9f7j                       2/2     Running     0          3h11m
-    coredns-6c6bb68b64-cb8z2                  1/1     Running     0          3h12m
-    traefik-7b8b884c8-v8stn                   1/1     Running     0          3h11m
+    local-path-provisioner-58fb86bdfd-df99p   1/1     Running   0          2m10s
+    metrics-server-6d684c7b5-vm82v            1/1     Running   0          2m10s
+    coredns-6c6bb68b64-7z75d                  1/1     Running   0          2m10s
+    helm-install-traefik-bck6m                0/1     Error     4          2m10s
     
-    # kubectl get nodes
-    NAME         STATUS   ROLES    AGE     VERSION
-    krmao-hw-0   Ready    master   3h15m   v1.17.5+k3s1
+    # kubectl get nodes -o wide
+    NAME         STATUS   ROLES    AGE   VERSION        INTERNAL-IP     EXTERNAL-IP       OS-IMAGE                KERNEL-VERSION                CONTAINER-RUNTIME
+    krmao-hw-1   Ready    <none>   85s   v1.17.5+k3s1   192.168.0.57    119.3.86.212      CentOS Linux 7 (Core)   3.10.0-1160.15.2.el7.x86_64   containerd://1.3.3-k3s2
+    krmao-hw-0   Ready    master   97s   v1.17.5+k3s1   192.168.0.169   122.112.245.157   CentOS Linux 7 (Core)   3.10.0-1160.15.2.el7.x86_64   containerd://1.3.3-k3s2
     ```
 ### 参考
 * https://www.yinnote.com/k3s-instal/

@@ -8,5 +8,5 @@ k3s_download_url: http://rancher-mirror.cnrancher.com/k3s
 ansible_user: root
 systemd_dir: /etc/systemd/system
 master_ip: "{{ hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0]) }}"
-extra_server_args: "--node-external-ip {{ master_ip }}"
-extra_agent_args: ""
+extra_server_args: "--node-external-ip {{ ansible_ssh_host }}" # 每一台 master 使用外网 ip 地址注册和互联, 实现跨云集群互联
+extra_agent_args: "--node-external-ip {{ ansible_ssh_host }}"  # 每一台 node   使用外网 ip 地址注册和互联, 实现跨云集群互联
