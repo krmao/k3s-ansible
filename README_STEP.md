@@ -124,7 +124,35 @@ exit
     krmao-hw-1   Ready    <none>   85s   v1.17.5+k3s1   192.168.0.57    119.3.86.212      CentOS Linux 7 (Core)   3.10.0-1160.15.2.el7.x86_64   containerd://1.3.3-k3s2
     krmao-hw-0   Ready    master   97s   v1.17.5+k3s1   192.168.0.169   122.112.245.157   CentOS Linux 7 (Core)   3.10.0-1160.15.2.el7.x86_64   containerd://1.3.3-k3s2
     ```
-    
+4. [配置 Ansible 控制机 MacOS 从外部访问 K3s 集群](https://habd.as/post/kubernetes-macos-k3s-k3d-rancher/)
+    1. ansible 控制机 macos 安装 k3s/helm/kubectl 命令
+        ```shell
+        HOMEBREW_NO_AUTO_UPDATE=1 \
+        brew install k3d helm@3 kubectl
+        ```
+    2. 拷贝 k3s 集群 master 下面的 /etc/rancher/k3s/k3s.yaml 到 ansible 控制机
+        ```shell
+        scp root@122.112.245.157:/etc/rancher/k3s/k3s.yaml ~/
+        ```
+        1. 修改 k3s.yaml server ip 指向 k3s 集群 master external ip
+            ```shell
+            vi ~/k3s.yaml
+               server: https://127.0.0.1:6443
+               server: https://122.112.245.157:6443
+            wq
+            ```
+        2. 控制机从外部访问 k3s集群
+            ```shell
+            helm --kubeconfig ~/k3s.yaml ls --all-namespaces
+            kubectl --kubeconfig ~/k3s.yaml get nodes -o wide --all-namespaces
+            ```
+    3. 设置 kubeconfig 环境变量, 配置指令别名用以简写指令
+       ```shell
+        export KUBECONFIG=~/k3s.yaml
+        alias k=kubectl
+        k get pod -n kube-system
+        k get nodes -o wide --all-namespaces
+       ```
 ### 参考
 * [安装参考](https://www.yinnote.com/k3s-instal/)
 * /etc/systemd/system/k3s.service
