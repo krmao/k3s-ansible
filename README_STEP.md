@@ -155,7 +155,8 @@ exit
         k get nodes -o wide --all-namespaces
        ```
 ### 参考
-* [ANSIBLE 中文文档](https://cn-ansibledoc.readthedocs.io/zh_CN/latest/index.html)
+* [ANSIBLE 官方文档](https://docs.ansible.com/ansible/latest/index.html)
+* [ANSIBLE 中文文档](http://www.ansible.com.cn/index.html)
 * [K3S 官方中文文档](https://docs.rancher.cn/k3s/)
 * [K3S 安装参考](https://www.yinnote.com/k3s-instal/)
 * [K3S Helm 包管理工具](https://docs.rancher.cn/docs/k3s/helm/_index/)

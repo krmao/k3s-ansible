@@ -1,6 +1,6 @@
 ---
-- name: print node external ip
-  ipify_facts: # debug 打印信息
+- name: Print public IP of the internet gateway
+  ipify_facts:                                                                                    # https://docs.ansible.com/ansible/latest/collections/community/general/ipify_facts_module.html
 - debug: msg=--node-external-ip={{ ansible_ssh_host }}                                            # 外网 IP
 #- debug: msg=--node-external-ip={{ hostvars[inventory_hostname]['ipify_public_ip'] }}            # 外网 IP
 #- debug: msg=--node-ip={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}     # 内网 IP
