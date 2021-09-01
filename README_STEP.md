@@ -160,6 +160,50 @@ exit
         k get pod -n kube-system
         k get nodes -o wide --all-namespaces
        ```
+5. [Kubernetes Dashboard](https://rancher.com/docs/k3s/latest/en/installation/kube-dashboard/)
+    ```shell
+    # 在 ansible 控制机执行以下命令
+   
+    # Deploying the Kubernetes Dashboard
+    GITHUB_URL=https://github.com/kubernetes/dashboard/releases
+    VERSION_KUBE_DASHBOARD=$(curl -w '%{url_effective}' -I -L -s -S ${GITHUB_URL}/latest -o /dev/null | sed -e 's|.*/||')
+    k create -f https://raw.githubusercontent.com/kubernetes/dashboard/${VERSION_KUBE_DASHBOARD}/aio/deploy/recommended.yaml
+    
+    # Dashboard RBAC Configuration
+    # cd ./dashboard
+    dashboard.admin-user.yml
+        apiVersion: v1
+        kind: ServiceAccount
+        metadata:
+        name: admin-user
+        namespace: kubernetes-dashboard
+     
+    dashboard.admin-user-role.yml
+        apiVersion: rbac.authorization.k8s.io/v1
+        kind: ClusterRoleBinding
+        metadata:
+        name: admin-user
+        roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: cluster-admin
+        subjects:
+        - kind: ServiceAccount
+          name: admin-user
+          namespace: kubernetes-dashboard
+   
+    k create -f dashboard.admin-user.yml -f dashboard.admin-user-role.yml
+   
+    # Obtain the Bearer Token
+    k -n kubernetes-dashboard describe secret admin-user-token | grep '^token'
+   
+    # Local Access to the Dashboard
+    k proxy
+   
+    # The Dashboard is now accessible at:
+    http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+    Sign In with the admin-user Bearer Token
+    ```
 ### 参考
 * [ANSIBLE 官方文档](https://docs.ansible.com/ansible/latest/index.html)
 * [ANSIBLE 中文文档1](http://www.ansible.com.cn/index.html)
