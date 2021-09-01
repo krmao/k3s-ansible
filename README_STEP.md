@@ -149,8 +149,14 @@ exit
             ```
     3. 设置 kubeconfig 环境变量, 配置指令别名用以简写指令
        ```shell
-        export KUBECONFIG=~/k3s.yaml
-        alias k=kubectl
+        vi ~/.bash_profile
+            KUBECONFIG=~/k3s.yaml
+            PATH=$PATH:$KUBECONFIG
+            export KUBECONFIG
+            alias k=kubectl
+            export PATH
+        source ~/.bash_profile
+
         k get pod -n kube-system
         k get nodes -o wide --all-namespaces
        ```
