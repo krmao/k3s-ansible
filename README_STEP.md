@@ -162,12 +162,14 @@ exit
        ```
 ### 参考
 * [ANSIBLE 官方文档](https://docs.ansible.com/ansible/latest/index.html)
-* [ANSIBLE 中文文档](http://www.ansible.com.cn/index.html)
+* [ANSIBLE 中文文档1](http://www.ansible.com.cn/index.html)
+* [ANSIBLE 中文文档2](https://www.w3cschool.cn/automate_with_ansible/automate_with_ansible-db6727oq.html)
 * [K3S 官方中文文档](https://docs.rancher.cn/k3s/)
 * [K3S 安装参考](https://www.yinnote.com/k3s-instal/)
 * [K3S Helm 包管理工具](https://docs.rancher.cn/docs/k3s/helm/_index/)
 * [K3S 使用 kubectl 从外部访问集群](https://docs.rancher.cn/docs/k3s/cluster-access/_index)
 * [K8S 官方中文文档](https://kubernetes.io/zh/docs/home/)
+* IDEA 可以安装 Ansible 插件
 * 实现跨云集群互联
   ```yaml
   #all.yml
