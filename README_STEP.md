@@ -222,6 +222,7 @@ exit
     sudo crictl info | grep mirror
     ```
 8. [helm install traefik pod 失败](https://github.com/k3s-io/k3s/issues/1332)
+    > 注意 systemctl restart k3s 重启服务后依然会报错
     ```shell
     ssh k0
     mv /var/lib/rancher/k3s/server/manifests/traefik.yaml /tmp/traefik.yaml
