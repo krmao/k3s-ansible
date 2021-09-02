@@ -222,7 +222,7 @@ exit
     sudo crictl info | grep mirror
     ```
 8. [helm install traefik pod 失败](https://github.com/k3s-io/k3s/issues/1332)
-    > 注意 systemctl restart k3s 重启服务后依然会报错
+    > 注意 systemctl restart k3s 重启服务后依然会报错, 可直接使用步骤9的方法禁用该默认组件
     ```shell
     ssh k0
     mv /var/lib/rancher/k3s/server/manifests/traefik.yaml /tmp/traefik.yaml
@@ -230,6 +230,23 @@ exit
     kubectl delete -n kube-system service traefik-dashboard
     kubectl delete -n kube-system ingress traefik-dashboard
     mv /tmp/traefik.yaml /var/lib/rancher/k3s/server/manifests/traefik.yaml
+    ```
+9. [k3s no deploy traefik](https://github.com/k3s-io/k3s/issues/1160)
+    ```yaml
+    # all.yml
+    extra_server_args: "--no-deploy traefik"
+   
+    # reinstall
+    ansible-playbook reset.yml -i inventory/my-cluster/hosts.ini -u root -b -v
+    ansible-playbook site.yml -i inventory/my-cluster/hosts.ini -u root -b -v
+   
+    # detect and will find no about traefik
+    ssh k0
+    kubectl get pod -n kube-system -o wide
+    # NAME                                      READY   STATUS    RESTARTS   AGE     IP          NODE         NOMINATED NODE   READINESS GATES
+    # metrics-server-6d684c7b5-99ccw            1/1     Running   2          5m20s   10.42.0.3   krmao-hw-1   <none>           <none>
+    # local-path-provisioner-58fb86bdfd-4vcz5   1/1     Running   2          5m20s   10.42.0.2   krmao-hw-1   <none>           <none>
+    # coredns-6c6bb68b64-tp2g9                  1/1     Running   0          5m20s   10.42.1.2   krmao-hw-0   <none>           <none>
     ```
 ### 参考
 * [ANSIBLE 官方文档](https://docs.ansible.com/ansible/latest/index.html)
