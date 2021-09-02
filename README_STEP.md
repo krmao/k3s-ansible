@@ -204,6 +204,32 @@ exit
     http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
     Sign In with the admin-user Bearer Token
     ```
+6. 安装 K8S IDE [lens](https://k8slens.dev/)
+7. [Containerd 国内加速源](https://blog.csdn.net/xs20691718/article/details/106515605)
+    ```shell
+    ssh k0
+    cd /var/lib/rancher/k3s/agent/etc/containerd/
+    sudo crictl info | grep mirror
+    cp config.toml config.toml.tmpl
+    
+    vi config.toml.tmpl
+        # 在 config.toml.tmpl 文件中添加
+        [plugins.cri.registry.mirrors]
+          [plugins.cri.registry.mirrors."docker.io"]
+            endpoint = ["https://docker.mirrors.ustc.edu.cn"]
+    
+    systemctl restart k3s
+    sudo crictl info | grep mirror
+    ```
+8. [helm install traefik pod 失败](https://github.com/k3s-io/k3s/issues/1332)
+    ```shell
+    ssh k0
+    mv /var/lib/rancher/k3s/server/manifests/traefik.yaml /tmp/traefik.yaml
+    kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
+    kubectl delete -n kube-system service traefik-dashboard
+    kubectl delete -n kube-system ingress traefik-dashboard
+    mv /tmp/traefik.yaml /var/lib/rancher/k3s/server/manifests/traefik.yaml
+    ```
 ### 参考
 * [ANSIBLE 官方文档](https://docs.ansible.com/ansible/latest/index.html)
 * [ANSIBLE 中文文档1](http://www.ansible.com.cn/index.html)
