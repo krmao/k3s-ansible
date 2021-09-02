@@ -247,7 +247,11 @@ exit
     # metrics-server-6d684c7b5-99ccw            1/1     Running   2          5m20s   10.42.0.3   krmao-hw-1   <none>           <none>
     # local-path-provisioner-58fb86bdfd-4vcz5   1/1     Running   2          5m20s   10.42.0.2   krmao-hw-1   <none>           <none>
     # coredns-6c6bb68b64-tp2g9                  1/1     Running   0          5m20s   10.42.1.2   krmao-hw-0   <none>           <none>
+    
+    # Unable to connect to the server: x509: certificate signed by unknown authority
+    # 重新执行步骤 4.4.2 即 k3s.yaml 文件中包含新的证书, 重新安装 k3s 集群后不更新本地证书就有可能报错
     ```
+
 ### 参考
 * [ANSIBLE 官方文档](https://docs.ansible.com/ansible/latest/index.html)
 * [ANSIBLE 中文文档1](http://www.ansible.com.cn/index.html)
