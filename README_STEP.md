@@ -205,6 +205,10 @@ exit
     Sign In with the admin-user Bearer Token
     ```
 6. 安装 K8S IDE [lens](https://k8slens.dev/)
+    ```shell
+    # 添加集群 -> add cat k3s.yaml -> 固定集群到菜单
+    # 右击集群 -> Lens Metrics -> Enable bundled Prometheus metrics stack -> apply
+    ```
 7. [Containerd 国内加速源](https://blog.csdn.net/xs20691718/article/details/106515605)
     ```shell
     ssh k0
@@ -231,7 +235,7 @@ exit
     kubectl delete -n kube-system ingress traefik-dashboard
     mv /tmp/traefik.yaml /var/lib/rancher/k3s/server/manifests/traefik.yaml
     ```
-9. [k3s no deploy traefik](https://github.com/k3s-io/k3s/issues/1160)
+9. [k3s no deploy default traefik](https://github.com/k3s-io/k3s/issues/1160)
     ```yaml
     # all.yml
     extra_server_args: "--no-deploy traefik"
@@ -250,6 +254,15 @@ exit
     
     # Unable to connect to the server: x509: certificate signed by unknown authority
     # 重新执行步骤 4.4.2 即 k3s.yaml 文件中包含新的证书, 重新安装 k3s 集群后不更新本地证书就有可能报错
+    # 届时 lens 软件也需要
+    ```
+10. [k3s install traefik by self](https://doc.traefik.io/traefik/getting-started/install-traefik/)
+    ```shell
+    helm repo add traefik https://helm.traefik.io/traefik
+    helm repo update
+    helm install traefik traefik/traefik
+    kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000
+    Accessible with the url: http://127.0.0.1:9000/dashboard/
     ```
 
 ### 参考
