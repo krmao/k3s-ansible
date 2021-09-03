@@ -273,6 +273,7 @@ exit
     # uninstall with namespace
     # helm uninstall traefik --namespace traefik-v2
     
+    # https://community.traefik.io/t/traefik-pod-not-found-when-using-kubectl-port-forward-for-dashboard-access/9895
     kubectl port-forward --namespace traefik-v2 $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name --namespace traefik-v2) 9000:9000
     Accessible with the url: http://127.0.0.1:9000/dashboard/
     ```
