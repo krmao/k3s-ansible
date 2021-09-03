@@ -283,8 +283,11 @@ exit
     helm install kube-state-metrics bitnami/kube-state-metrics --namespace=kube-state-metrics
     kubectl port-forward --namespace kube-state-metrics svc/kube-state-metrics 9100:8080
     Accessible with the url: http://127.0.0.1:9100/
+    
+    # helm uninstall kube-state-metrics --namespace kube-state-metrics
     ```
 ### 参考
+* [DOCKER HUB](https://registry.hub.docker.com/search?q=&type=image)
 * [ANSIBLE 官方文档](https://docs.ansible.com/ansible/latest/index.html)
 * [ANSIBLE 中文文档1](http://www.ansible.com.cn/index.html)
 * [ANSIBLE 中文文档2](https://www.w3cschool.cn/automate_with_ansible/automate_with_ansible-db6727oq.html)
