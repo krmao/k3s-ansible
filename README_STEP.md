@@ -281,11 +281,12 @@ exit
     ```shell
     kubectl create ns kube-state-metrics
     helm install kube-state-metrics bitnami/kube-state-metrics --namespace=kube-state-metrics
-    kubectl port-forward --namespace kube-state-metrics svc/kube-state-metrics 9100:8080
-    Accessible with the url: http://127.0.0.1:9100/
+    kubectl port-forward --namespace kube-state-metrics svc/kube-state-metrics 8080:8080
+    Accessible with the url: http://127.0.0.1:8080/
     
     # helm uninstall kube-state-metrics --namespace kube-state-metrics
     ```
+12. [PROMETHEUS](http://localhost:61762/classic/graph)
 ### 参考
 * [DOCKER HUB](https://registry.hub.docker.com/search?q=&type=image)
 * [ANSIBLE 官方文档](https://docs.ansible.com/ansible/latest/index.html)
