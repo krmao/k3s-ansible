@@ -260,7 +260,19 @@ exit
     ```shell
     helm repo add traefik https://helm.traefik.io/traefik
     helm repo update
+    
+    # install in default namespace
     helm install traefik traefik/traefik
+    # helm uninstall traefik --namespace=default
+    
+    # install in a dedicated namespace
+    kubectl create ns traefik-v2
+    # Install in the namespace "traefik-v2"
+    helm install traefik traefik/traefik --namespace=traefik-v2
+    
+    # uninstall with namespace
+    # helm uninstall traefik --namespace traefik-v2
+    
     kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000
     Accessible with the url: http://127.0.0.1:9000/dashboard/
     ```
