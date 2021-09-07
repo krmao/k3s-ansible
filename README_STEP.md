@@ -133,7 +133,7 @@ exit
         ```
     2. 拷贝 k3s 集群 master 下面的 /etc/rancher/k3s/k3s.yaml 到 ansible 控制机
         ```shell
-        scp root@122.112.245.157:/etc/rancher/k3s/k3s.yaml ~/
+        scp root@122.112.245.157:/etc/rancher/k3s/k3s.yaml ~/ && sed -i 's/127.0.0.1/122.112.245.157/g' ~/k3s.yaml && cat ~/k3s.yaml
         ```
         1. 修改 k3s.yaml server ip 指向 k3s 集群 master external ip
             ```shell
@@ -277,18 +277,34 @@ exit
     kubectl port-forward --namespace traefik-v2 $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name --namespace traefik-v2) 9000:9000
     Accessible with the url: http://127.0.0.1:9000/dashboard/
     ```
-11. install kube-state-metrics
+11. lens with kube-state-metrics
     ```shell
-    kubectl create ns kube-state-metrics
-    helm install kube-state-metrics bitnami/kube-state-metrics --namespace=kube-state-metrics
-    kubectl port-forward --namespace kube-state-metrics svc/kube-state-metrics 8080:8080
+    kubectl create ns lens-metrics
+    
+    helm install kube-state-metrics bitnami/kube-state-metrics --namespace=lens-metrics
+    helm install node-exporter      bitnami/node-exporter      --namespace=lens-metrics
+    helm install prometheus         bitnami/prometheus         --namespace=lens-metrics
+    helm install prometheus         bitnami/prometheus-operator         --namespace=lens-metrics
+    
+    kubectl port-forward --namespace lens-metrics svc/kube-state-metrics 8080:8080
     Accessible with the url: http://127.0.0.1:8080/
     
-    # helm uninstall kube-state-metrics --namespace kube-state-metrics
+    # 一键重装 start
+    # 重置失败尝试重启后再试 ssh k0 -> reboot, ssh k1 -> reboot
+    # ansible-playbook reset.yml -i inventory/my-cluster/hosts.ini -u root -b -v
+    # ansible-playbook site.yml -i inventory/my-cluster/hosts.ini -u root -b -v && scp root@122.112.245.157:/etc/rancher/k3s/k3s.yaml ~/ && sed -i '.bak' 's/127.0.0.1/122.112.245.157/g' ~/k3s.yaml && cat ~/k3s.yaml && k get pod -o wide --all-namespaces
+    # 一键重装 end
+    
+    helm uninstall kube-state-metrics --namespace lens-metrics
+    helm uninstall node-exporter      --namespace lens-metrics
+    
+    # k get pod -o wide --all-namespaces
+    k delete -n lens-metrics pod prometheus-0  --force --grace-period=0 # 删除后自动重装
     ```
 12. [PROMETHEUS](http://localhost:61762/classic/graph)
 ### 参考
 * [DOCKER HUB](https://registry.hub.docker.com/search?q=&type=image)
+* [阿里云镜像仓库](https://cr.console.aliyun.com/cn-qingdao/instance/dashboard)
 * [ANSIBLE 官方文档](https://docs.ansible.com/ansible/latest/index.html)
 * [ANSIBLE 中文文档1](http://www.ansible.com.cn/index.html)
 * [ANSIBLE 中文文档2](https://www.w3cschool.cn/automate_with_ansible/automate_with_ansible-db6727oq.html)
