@@ -313,6 +313,8 @@ exit
 * [K3S Helm 包管理工具](https://docs.rancher.cn/docs/k3s/helm/_index/)
 * [K3S 使用 kubectl 从外部访问集群](https://docs.rancher.cn/docs/k3s/cluster-access/_index)
 * [K8S 官方中文文档](https://kubernetes.io/zh/docs/home/)
+* [k8s master节点的高可用 (haproxy + keepalived)](https://www.cnblogs.com/cjwnb/p/12532402.html)
+* [拥抱Kubernetes,再见了Spring Cloud](https://zhuanlan.zhihu.com/p/339736610)
 * IDEA 可以安装 Ansible 插件
 * 实现跨云集群互联
   ```yaml
